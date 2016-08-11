@@ -1,0 +1,92 @@
+﻿
+html,body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Hammersmith One', cursive;
+  
+}
+
+
+#backgroundslider {
+    position: relative;
+  
+}
+
+#backgroundslider > div{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+h1{
+    
+    z-index: 55;
+    position: absolute;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 6em;
+
+}
+
+button{
+    position: absolute;
+    z-index: 100;
+    border-radius: 3px;
+    top: 69%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    
+}
+.btn {
+    padding: 17px 43px;
+    color: white;
+    background-color:black;
+    border-color: black;
+
+}
+.btn-primary:hover {
+    background-color:dimgray;
+}
+
+
+
+.firstpic{
+    background: url("/Images/hero-img.jpg") center bottom no-repeat;
+    background-size: cover;
+    
+}
+
+.secondpic{
+    background: url("/Images/hero-img2.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+.thirdpic{
+    background: url("/Images/hero-img3.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+.fourthpic{
+    background: url("/Images/hero-img4.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+.panel-primary {
+    border: none;
+    -webkit-box-shadow: 2px 9px 21px 0px rgba(163,161,163,0.7);
+    -moz-box-shadow: 2px 9px 21px 0px rgba(163,161,163,0.7);
+    box-shadow: 2px 9px 21px 0px rgba(163,161,163,0.7);
+}
+
+footer {
+    position: absolute;
+    z-index : 50;
+    bottom: 0;
+}
+
+#active{
+    z-index: 50;
+}

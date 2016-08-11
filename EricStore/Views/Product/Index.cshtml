@@ -1,0 +1,60 @@
+﻿@model EricStore.Models.CategoryModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<html>
+<head>
+    <style>
+        img {
+            display: block;
+            margin-left: 173px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center; margin-top: 5%;">United Shoes</h2>
+
+    <hr />
+
+    <div class="container">
+        
+
+
+        <div class="row">
+@for (int i = 0; i < Model.Shoes.Length; i++)
+{
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+
+                    @using (Html.BeginForm())
+                    { @*<form action="/Product/Index> this is a comment, it binds information saved and sends to controller"}*@
+                        @Html.HiddenFor(m => m.Shoes[i].ID)
+                        <input type="hidden" value="@Model.Shoes[i].ID" name="ID" />
+
+                        <div class="panel-heading" style="text-align:center;">@Model.Shoes[i].ShoeName $@Model.Shoes[i].Price</div>
+                        <div class="panel-body">
+                            <img src="~/Images/@Model.Shoes[i].Thumb" style="width: 160px; height: 160px;" />
+                            <p>@Model.Shoes[i].Description</p>
+
+                        </div>
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Log In to add this to your Cart", "Index", "SignIn", null,
+                            new { @style = "margin-left: 33%;" })
+                        }
+                    } @*form action ends here. binds to controller..*@
+                </div>
+            </div>
+}
+        </div>
+        
+    </div>
+</body>
+</html>

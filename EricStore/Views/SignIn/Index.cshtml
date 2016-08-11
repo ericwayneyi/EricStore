@@ -1,0 +1,26 @@
+﻿@model EricStore.Models.LoginModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Log In</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false)
+    <div class="row">
+        @Html.LabelFor(m => m.Email)
+        @Html.EditorFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div class="row">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <input type="submit" title="Log In" class="btn-primary" />
+
+    @Html.ActionLink("Are you a new user?? Register Here", "Index", "Registration")
+}
+

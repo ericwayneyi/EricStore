@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eff9cbf9807f4c8ea8a4ac2f9710c7ba" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="EricTestModel.Basket" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="EricTestModel.BasketProductSize" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="EricTestModel.Product" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="EricTestModel.ProductSize" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="EricTestModel.Review" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="EricTestModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="EricTestModel.FK_Basket_User" />
+        <AssociationConnector Association="EricTestModel.FK_BasketProductSize_Basket" />
+        <AssociationConnector Association="EricTestModel.FK_BasketProductSize_Product" />
+        <AssociationConnector Association="EricTestModel.fk_Product" />
+        <AssociationConnector Association="EricTestModel.FK_ProductSize_Product" />
+        <AssociationConnector Association="EricTestModel.fk_ReviewUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

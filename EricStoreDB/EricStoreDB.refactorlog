@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="28564015-3f4e-4f8a-8c74-dfc030b55b16" ChangeDateTime="08/05/2016 16:10:31">
+    <Property Name="ElementName" Value="[dbo].[Size].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Size]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Size" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="091f9d54-b94a-4b3d-bda5-191a65b919af" ChangeDateTime="08/05/2016 16:12:04">
+    <Property Name="ElementName" Value="[dbo].[ProductSize].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ProductSize]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ProductId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="690b1183-aa81-4633-a69e-dbe0bac42b68" ChangeDateTime="08/05/2016 16:40:25">
+    <Property Name="ElementName" Value="[dbo].[CartProductSize].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CartProductSize]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CartId" />
+  </Operation>
+</Operations>

@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EricTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BasketProductSize">
+          <Key>
+            <PropertyRef Name="BasketId" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Size" />
+          </Key>
+          <Property Name="BasketId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Size" Type="float" Nullable="false" />
+          <Property Name="Quantity " Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Price" Type="smallmoney" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="CanPurchase" Type="bit" />
+          <Property Name="SoldOut" Type="bit" />
+          <Property Name="Full" Type="nvarchar" MaxLength="256" />
+          <Property Name="Thumb" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="ProductSize">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Size" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Size" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Stars" Type="int" />
+          <Property Name="Body" Type="ntext" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="56" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Basket_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketProductSize_Basket">
+          <End Role="Basket" Type="Self.Basket" Multiplicity="1" />
+          <End Role="BasketProductSize" Type="Self.BasketProductSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BasketProductSize">
+              <PropertyRef Name="BasketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketProductSize_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="BasketProductSize" Type="Self.BasketProductSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BasketProductSize">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSize_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductSize" Type="Self.ProductSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductSize">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ReviewUser">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EricTestModelStoreContainer">
+          <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BasketProductSize" EntityType="Self.BasketProductSize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSize" EntityType="Self.ProductSize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Basket_User" Association="Self.FK_Basket_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketProductSize_Basket" Association="Self.FK_BasketProductSize_Basket">
+            <End Role="Basket" EntitySet="Basket" />
+            <End Role="BasketProductSize" EntitySet="BasketProductSize" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketProductSize_Product" Association="Self.FK_BasketProductSize_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="BasketProductSize" EntitySet="BasketProductSize" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Product" Association="Self.fk_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSize_Product" Association="Self.FK_ProductSize_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSize" EntitySet="ProductSize" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ReviewUser" Association="Self.fk_ReviewUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EricTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EricTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Baskets" EntityType="EricTestModel.Basket" />
+          <EntitySet Name="BasketProductSizes" EntityType="EricTestModel.BasketProductSize" />
+          <EntitySet Name="Products" EntityType="EricTestModel.Product" />
+          <EntitySet Name="ProductSizes" EntityType="EricTestModel.ProductSize" />
+          <EntitySet Name="Reviews" EntityType="EricTestModel.Review" />
+          <EntitySet Name="Users" EntityType="EricTestModel.User" />
+          <AssociationSet Name="FK_Basket_User" Association="EricTestModel.FK_Basket_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Basket" EntitySet="Baskets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketProductSize_Basket" Association="EricTestModel.FK_BasketProductSize_Basket">
+            <End Role="Basket" EntitySet="Baskets" />
+            <End Role="BasketProductSize" EntitySet="BasketProductSizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketProductSize_Product" Association="EricTestModel.FK_BasketProductSize_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="BasketProductSize" EntitySet="BasketProductSizes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Product" Association="EricTestModel.fk_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSize_Product" Association="EricTestModel.FK_ProductSize_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductSize" EntitySet="ProductSizes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ReviewUser" Association="EricTestModel.fk_ReviewUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="EricTestModel.FK_Basket_User" FromRole="Basket" ToRole="User" />
+          <NavigationProperty Name="BasketProductSizes" Relationship="EricTestModel.FK_BasketProductSize_Basket" FromRole="Basket" ToRole="BasketProductSize" />
+        </EntityType>
+        <EntityType Name="BasketProductSize">
+          <Key>
+            <PropertyRef Name="BasketId" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Size" />
+          </Key>
+          <Property Name="BasketId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Size" Type="Double" Nullable="false" />
+          <Property Name="Quantity_" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Basket" Relationship="EricTestModel.FK_BasketProductSize_Basket" FromRole="BasketProductSize" ToRole="Basket" />
+          <NavigationProperty Name="Product" Relationship="EricTestModel.FK_BasketProductSize_Product" FromRole="BasketProductSize" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CanPurchase" Type="Boolean" />
+          <Property Name="SoldOut" Type="Boolean" />
+          <Property Name="Full" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Thumb" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BasketProductSizes" Relationship="EricTestModel.FK_BasketProductSize_Product" FromRole="Product" ToRole="BasketProductSize" />
+          <NavigationProperty Name="Reviews" Relationship="EricTestModel.fk_Product" FromRole="Product" ToRole="Review" />
+          <NavigationProperty Name="ProductSizes" Relationship="EricTestModel.FK_ProductSize_Product" FromRole="Product" ToRole="ProductSize" />
+        </EntityType>
+        <EntityType Name="ProductSize">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Size" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Size" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="EricTestModel.FK_ProductSize_Product" FromRole="ProductSize" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Stars" Type="Int32" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="EricTestModel.fk_Product" FromRole="Review" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="EricTestModel.fk_ReviewUser" FromRole="Review" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Baskets" Relationship="EricTestModel.FK_Basket_User" FromRole="User" ToRole="Basket" />
+          <NavigationProperty Name="Reviews" Relationship="EricTestModel.fk_ReviewUser" FromRole="User" ToRole="Review" />
+        </EntityType>
+        <Association Name="FK_Basket_User">
+          <End Type="EricTestModel.User" Role="User" Multiplicity="1" />
+          <End Type="EricTestModel.Basket" Role="Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketProductSize_Basket">
+          <End Type="EricTestModel.Basket" Role="Basket" Multiplicity="1" />
+          <End Type="EricTestModel.BasketProductSize" Role="BasketProductSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BasketProductSize">
+              <PropertyRef Name="BasketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketProductSize_Product">
+          <End Type="EricTestModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="EricTestModel.BasketProductSize" Role="BasketProductSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BasketProductSize">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Product">
+          <End Type="EricTestModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="EricTestModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSize_Product">
+          <End Type="EricTestModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="EricTestModel.ProductSize" Role="ProductSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductSize">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ReviewUser">
+          <End Type="EricTestModel.User" Role="User" Multiplicity="1" />
+          <End Type="EricTestModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EricTestModelStoreContainer" CdmEntityContainer="EricTestEntities">
+          <EntitySetMapping Name="Baskets">
+            <EntityTypeMapping TypeName="EricTestModel.Basket">
+              <MappingFragment StoreEntitySet="Basket">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BasketProductSizes">
+            <EntityTypeMapping TypeName="EricTestModel.BasketProductSize">
+              <MappingFragment StoreEntitySet="BasketProductSize">
+                <ScalarProperty Name="Quantity_" ColumnName="Quantity " />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="BasketId" ColumnName="BasketId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="EricTestModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Thumb" ColumnName="Thumb" />
+                <ScalarProperty Name="Full" ColumnName="Full" />
+                <ScalarProperty Name="SoldOut" ColumnName="SoldOut" />
+                <ScalarProperty Name="CanPurchase" ColumnName="CanPurchase" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSizes">
+            <EntityTypeMapping TypeName="EricTestModel.ProductSize">
+              <MappingFragment StoreEntitySet="ProductSize">
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="EricTestModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Stars" ColumnName="Stars" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EricTestModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
