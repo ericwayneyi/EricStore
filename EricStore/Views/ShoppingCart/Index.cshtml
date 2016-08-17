@@ -1,0 +1,30 @@
+﻿@model EricStore.Models.CartModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Shopping Cart</h2>
+
+@using (Html.BeginForm())
+{
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.BillingFirstName)
+        @Html.TextBoxFor(x => x.BillingFirstName, new { Placeholder ="Please enter your First Name" })
+        @Html.ValidationMessageFor(x => x.BillingFirstName)
+        
+    </div>
+    <div class="form-group">
+       @Html.LabelFor(x => x.BillingFirstName)
+       @Html.TextBoxFor(x => x.BillingLastName, new { Placeholder = "Please enter your Last Name"})
+       @Html.ValidationMessageFor(x => x.BillingLastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Address)
+        @Html.TextBoxFor(x => x.Address, new { Placeholder = "Address"})
+        @Html.ValidationMessageFor(x => x.Address)
+    </div>
+
+
+
+}
